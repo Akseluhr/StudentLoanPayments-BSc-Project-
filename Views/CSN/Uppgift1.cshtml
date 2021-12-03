@@ -1,0 +1,85 @@
+﻿@using System.Xml.Linq
+@model XElement
+
+@{
+    ViewBag.Title = "Uppgift 1 - Utbetalningar per ärende";
+}
+@{
+    
+    XElement xml = Model;
+}
+
+<h2>Uppgift 1 - Utbetalningar per ärende</h2>
+
+@* Rubriker för tabellen *@
+@foreach (var arendenummer in xml.Descendants("Arende"))
+{
+
+    <h3> Ärende @((string)arendenummer.Element("Arendenummer"))</h3>
+
+    <p>Bidrag:  @((string)arendenummer.Element("Beskrivning"))</p>
+
+    <table table class="table-bordered table_50">
+
+        <thead>
+            <tr>
+                <th>
+                    Datum
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Summa
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+           @* Tar in xml elemntet och visar värdet i vyn *@
+            @foreach (var arende in arendenummer.Descendants("Utbetalning"))
+            {
+                <tr>
+                    <td>
+                        @((string)arende.Element("UtbetDatum"))
+                    </td>
+                    <td>
+                        @((string)arende.Element("UtbetStatus"))
+                    </td>
+                    <td>
+                        @((string)arende.Element("Summa"))
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    Total summa:
+                </td>
+                <td>
+                    @(arendenummer.Element("Total").Value)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Utbetald summa:
+                </td>
+                <td>
+                    @(arendenummer.Element("Utbetald").Value)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Kvarvarande summa:
+                </td>
+                <td>
+                    @(arendenummer.Element("Kvarvarande").Value)
+                </td>
+                <td></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+}

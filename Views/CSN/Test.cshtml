@@ -1,0 +1,50 @@
+﻿@model System.Xml.Linq.XElement
+
+@{
+    ViewBag.Title = "Exempel: Beviljade tider 2009";
+}
+
+    <h2>Exempel: Beviljade tider 2009</h2>
+
+<table table class="table-bordered table_50">
+    <thead>
+        <tr>
+            <th>
+                Ärendenummer
+            </th>
+            <th>
+                Stödform
+            </th>
+            <th>
+                Summa
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @*iterera igenom alla <BeviljadTid> noder i Model som håller vår xml*@
+
+        @foreach (var kurs in Model.Elements("BeviljadTid"))
+        {
+        <tr>
+            <td>
+                @((string)kurs.Element("Arendenummer"))
+            </td>
+            <td>
+                @((string)kurs.Element("Beskrivning"))
+            </td>
+            <td>
+                @((string)kurs.Element("Summa"))
+            </td>
+        </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                Total: @(Model.Element("Total").Value)
+            </td>
+        </tr>
+    </tbody>
+</table>
+

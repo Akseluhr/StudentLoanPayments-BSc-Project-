@@ -1,0 +1,53 @@
+﻿@using System.Xml.Linq
+@model XElement
+
+@{
+    ViewBag.Title = "Uppgift 3 - Beviljade Tider";
+}
+
+<h2>Uppgift 3 - Beviljade Tider</h2>
+@{
+    // Detta är det XElement-objekt som skickats till vyn
+    XElement xml = Model;
+}
+@* rubriker för tabellen *@
+<table table class="table-bordered table_50">
+    <thead>
+        <tr>
+            <th>
+                Stattid
+            </th>
+            <th>
+                Sluttid
+            </th>
+            <th>
+                Beskrivning
+            </th>
+            <th>
+                Summa
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @* tar in elemtet från xml och visar värdet *@
+        @foreach (var kurs in Model.Elements("BeviljadTid"))
+        {
+            <tr>
+                <td>
+                    @((string)kurs.Element("Starttid"))
+                </td>
+                <td>
+                    @((string)kurs.Element("Sluttid"))
+                </td>
+                <td>
+                    @((string)kurs.Element("Beskrivning"))
+                </td>
+                <td>
+                    @((string)kurs.Element("Summa"))
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
